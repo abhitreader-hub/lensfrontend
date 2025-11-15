@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (role, email, password) => {
-    const response = await ApiClient.post(`/auth/login`, { 
+    const response = await axios.post(`https://lensbackend.vercel.app/api/auth/login`, { 
       role, 
       email, 
       password 
@@ -57,3 +57,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
