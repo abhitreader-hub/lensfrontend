@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "tailwindcss";
+*{
+  scroll-behavior: smooth;
+}
+.hide-scroll{
+  scrollbar-width:none ;
+}
+.hide-scroll::-webkit-scrollbar {
+  display: none;             
+}
