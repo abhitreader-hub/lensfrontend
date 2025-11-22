@@ -1,6 +1,5 @@
 import axios from "axios";
 import { API } from "../src/config/config";
-alert(API);
 const ApiClient = axios.create({
     baseURL: API,
     headers: {
@@ -21,4 +20,3 @@ ApiClient.interceptors.request.use(
 );
 
 export default ApiClient;
-

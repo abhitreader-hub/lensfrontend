@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 function LensGroupCreation() {
+  let [newData,setNewData]=useState([])
   const [formData, setFormData] = useState({
     groupName: "",
     productName: "",
@@ -26,6 +27,13 @@ function LensGroupCreation() {
     addSlop: "0.5",
     eye: "",
   });
+
+  let handleClick = (e) => {
+    e.preventDefault();
+    setNewData([...newData,formData])
+    console.log(formData)
+  }
+
 
   const [addBarcodeWithPower, setAddBarcodeWithPower] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -248,11 +256,10 @@ function LensGroupCreation() {
                     <li
                       key={sugg}
                       onMouseDown={() => selectGroupSuggestion(sugg)}
-                      className={`px-3 py-2 cursor-pointer text-xs ${
-                        i === groupActiveIndex
+                      className={`px-3 py-2 cursor-pointer text-xs ${i === groupActiveIndex
                           ? "bg-blue-600 text-white"
                           : "text-slate-700 hover:bg-slate-100"
-                      }`}
+                        }`}
                     >
                       {sugg}
                     </li>
@@ -286,11 +293,10 @@ function LensGroupCreation() {
                     <li
                       key={sugg}
                       onMouseDown={() => selectProductSuggestion(sugg)}
-                      className={`px-3 py-2 cursor-pointer text-xs ${
-                        i === productActiveIndex
+                      className={`px-3 py-2 cursor-pointer text-xs ${i === productActiveIndex
                           ? "bg-blue-600 text-white"
                           : "text-slate-700 hover:bg-slate-100"
-                      }`}
+                        }`}
                     >
                       {sugg}
                     </li>
@@ -500,11 +506,10 @@ function LensGroupCreation() {
             <button
               type="button"
               onClick={() => setShowDetails((prev) => !prev)}
-              className={`inline-flex items-center gap-2 px-6 py-3 ${
-                showDetails
+              className={`inline-flex items-center gap-2 px-6 py-3 ${showDetails
                   ? "bg-gray-100 text-gray-800"
                   : "bg-blue-600 text-white"
-              } font-semibold rounded-xl hover:opacity-90 transition-colors duration-200`}
+                } font-semibold rounded-xl hover:opacity-90 transition-colors duration-200`}
             >
               <Eye className="w-4 h-4" />
               {showDetails ? "Hide" : "Show"}
@@ -554,31 +559,31 @@ function LensGroupCreation() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200">
-                    {lensData.map((lens, index) => (
+                    {newData?.map((lens, index) => (
                       <tr
                         key={index}
                         className="hover:bg-slate-50 transition-colors duration-150 group text-sm"
                       >
                         <td className="w-24 text-center text-slate-800 font-medium py-3 px-3">
                           <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-md font-semibold">
-                            {lens.sph}
+                            {lens.sphMin}
                           </span>
                         </td>
                         <td className="w-24 text-center text-slate-800 font-medium py-3 px-3">
                           <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-md font-semibold">
-                            {lens.cyl}
+                            {lens.sphMax}
                           </span>
                         </td>
                         <td className="w-32 text-center text-slate-700 py-3 px-3">
-                          {lens.barcode}
+                          {lens.sphSlop}
                         </td>
                         <td className="w-20 text-center text-slate-700 py-3 px-3">
                           <span className="bg-green-100 text-green-800 px-2 py-1 rounded-md text-xs font-medium">
-                            {lens.eye}
+                            {lens.cylMin}
                           </span>
                         </td>
                         <td className="w-20 text-center text-slate-700 py-3 px-3">
-                          {lens.axis}
+                          {lens.cylMax}
                         </td>
                         <td className="w-32 text-center py-3 px-3">
                           <div>
@@ -602,6 +607,7 @@ function LensGroupCreation() {
                       </tr>
                     ))}
                   </tbody>
+                  
                 </table>
               </div>
             </div>
@@ -628,7 +634,9 @@ function LensGroupCreation() {
               </label>
             </div>
             <div className="flex flex-wrap gap-3 ml-auto">
-              <button className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors duration-200">
+              <button className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors duration-200"
+                onClick={handleClick}
+              >
                 <Plus className="w-4 h-4" />
                 Create Lens Power
               </button>

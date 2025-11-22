@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (role, email, password) => {
-    const response = await axios.post(`https://lens-2.onrender.com/api/auth/login`, { 
+    const response = await ApiClient.post(`/auth/login`, { 
       role, 
       email, 
       password 
@@ -57,5 +57,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-
